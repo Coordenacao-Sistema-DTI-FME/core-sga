@@ -42,7 +42,18 @@ class ClienteType extends AbstractType
                 'label' => 'label.customer_id',
                 'constraints' => [
                     new NotNull(),
-                    new Length([ 'min' => 3 ]),
+                    new Length([
+                        'min' => 11,
+                        'max' => 11,
+                    ]),
+                    new Regex([
+                        'pattern' => '/^\d{11}$/',
+                        'message' => 'O CPF deve conter exatamente 11 números.',
+                    ]),
+                ],
+                'attr' => [
+                    'maxlength' => 11,
+                    'inputmode' => 'numeric',
                 ],
             ])
             ->add('email', EmailType::class, [
@@ -56,7 +67,18 @@ class ClienteType extends AbstractType
                 'label' => 'label.phone',
                 'required' => false,
                 'constraints' => [
-                    new Length([ 'max' => 25 ]),
+                    new Length([
+                        'min' => 10,
+                        'max' => 11,
+                    ]),
+                    new Regex([
+                        'pattern' => '/^\d{10,11}$/',
+                        'message' => 'O telefone deve conter apenas números e ter 10 ou 11 dígitos.',
+                    ]),
+                ],
+                'attr' => [
+                    'maxlength' => 11,
+                    'inputmode' => 'numeric',
                 ],
             ])
             ->add('genero', ChoiceType::class, [
