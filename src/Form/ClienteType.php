@@ -2,15 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the Novo SGA project.
- *
- * (c) Rogerio Lino <rogeriolino@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Novosga\Form;
 
 use Novosga\Entity\ClienteInterface;
@@ -24,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Valid;
 
 class ClienteType extends AbstractType
@@ -35,9 +27,12 @@ class ClienteType extends AbstractType
                 'label' => 'label.name',
                 'constraints' => [
                     new NotNull(),
-                    new Length([ 'min' => 3 ]),
+                    new Length([
+                        'min' => 3,
+                    ]),
                 ],
             ])
+
             ->add('documento', TextType::class, [
                 'label' => 'label.customer_id',
                 'constraints' => [
@@ -56,13 +51,17 @@ class ClienteType extends AbstractType
                     'inputmode' => 'numeric',
                 ],
             ])
+
             ->add('email', EmailType::class, [
                 'label' => 'label.email',
                 'required' => false,
                 'constraints' => [
-                    new Length([ 'max' => 80 ]),
+                    new Length([
+                        'max' => 80,
+                    ]),
                 ],
             ])
+
             ->add('telefone', TextType::class, [
                 'label' => 'label.phone',
                 'required' => false,
@@ -81,6 +80,7 @@ class ClienteType extends AbstractType
                     'inputmode' => 'numeric',
                 ],
             ])
+
             ->add('genero', ChoiceType::class, [
                 'label' => 'label.gender',
                 'required' => false,
@@ -91,11 +91,13 @@ class ClienteType extends AbstractType
                     'label.gender.unknown' => 'O',
                 ],
             ])
+
             ->add('dataNascimento', BirthdayType::class, [
                 'label' => 'label.birthday',
                 'required' => false,
                 'placeholder' => '',
             ])
+
             ->add('observacao', TextareaType::class, [
                 'label' => 'label.notes',
                 'required' => false,
@@ -103,6 +105,7 @@ class ClienteType extends AbstractType
                     'rows' => 6,
                 ],
             ])
+
             ->add('endereco', EnderecoType::class, [
                 'label' => 'label.address',
                 'required' => false,
@@ -112,14 +115,13 @@ class ClienteType extends AbstractType
                 'constraints' => [
                     new Valid(),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => ClienteInterface::class,
-        ));
+        ]);
     }
 }
