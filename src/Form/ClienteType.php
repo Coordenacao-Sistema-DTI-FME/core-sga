@@ -58,14 +58,10 @@ class ClienteType extends AbstractType
                 ],
             ])
 
-            ->add('telefone', TextType::class, [
+           ->add('telefone', TextType::class, [
                 'label' => 'label.phone',
                 'required' => false,
                 'constraints' => [
-                    new Length([
-                        'min' => 10,
-                        'max' => 11,
-                    ]),
                     new Regex([
                         'pattern' => '/^\d{10,11}$/',
                         'message' => 'O telefone deve conter apenas números e ter 10 ou 11 dígitos.',
