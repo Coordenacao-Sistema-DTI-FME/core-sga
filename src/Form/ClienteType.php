@@ -36,11 +36,6 @@ class ClienteType extends AbstractType
             ->add('documento', TextType::class, [
                 'label' => 'label.customer_id',
                 'constraints' => [
-                    new NotNull(),
-                    new Length([
-                        'min' => 11,
-                        'max' => 11,
-                    ]),
                     new Regex([
                         'pattern' => '/^\d{11}$/',
                         'message' => 'O CPF deve conter exatamente 11 números.',
